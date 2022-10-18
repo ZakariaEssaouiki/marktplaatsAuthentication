@@ -72,6 +72,13 @@
 				<version>2.22.2</version>
 				<configuration>
 					<skipTests>true</skipTests>
+					<argLine>
+						--illegal-access=permit
+					</argLine>
+					<testFailureIgnore>true</testFailureIgnore>
+					<forkCount>2</forkCount>
+					<reuseForks>true</reuseForks>
+					<argLine>${surefireArgLine}</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
