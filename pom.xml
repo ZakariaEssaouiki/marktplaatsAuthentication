@@ -58,6 +58,12 @@
 			<version>3.9.1.2184</version>
 			<type>maven-plugin</type>
 		</dependency>
+		<dependency>
+			<groupId>io.openliberty</groupId>
+			<artifactId>openliberty-runtime</artifactId>
+			<version>21.0.0.10</version>
+			<type>zip</type>
+		</dependency>
 	</dependencies>
 
 	<build>
