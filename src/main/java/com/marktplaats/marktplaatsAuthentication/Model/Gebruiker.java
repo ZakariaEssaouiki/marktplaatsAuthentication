@@ -18,6 +18,7 @@ public class Gebruiker {
     private String voornaam;
     private String achternaam;
     private LocalDate geboorteDatum;
+    @Enumerated(EnumType.STRING)
     private Geslacht geslacht;
 
     public Gebruiker(String gebruikersnaam, String email, String wachtwoord, String voornaam,String achternaam,
@@ -55,6 +56,12 @@ public class Gebruiker {
     public String getAchternaam() {return achternaam;}
     public void setAchternaam(String achternaam) {this.achternaam = achternaam;}
 
+    /*@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //yyyy-MM-dd'T'HH:mm:ssZ example
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }*/
     @Override
     public String toString() {
         return this.gebruikersnaam;
