@@ -33,7 +33,7 @@ public class GebruikerService implements IGebruikerService{
     @Override
     public boolean GebruikersnaamAlInGebruik(String gebruikersnaam) {
         if(!gebruikersnaam.isEmpty() && !gebruikersnaam.isBlank()){
-            if(!repo.findByGebruikersnaam(gebruikersnaam)){
+            if(!repo.findGebruikerByGebruikersnaam(gebruikersnaam)){
                 return true;
             }
         }
@@ -43,7 +43,7 @@ public class GebruikerService implements IGebruikerService{
     @Override
     public boolean EmailAlInGebruik(String email) {
         if(!email.isEmpty() && !email.isBlank()){
-            if(!repo.findByEmail(email)){
+            if(!repo.findGebruikerByEmail(email)){
                 return true;
             }
         }
@@ -53,5 +53,11 @@ public class GebruikerService implements IGebruikerService{
     @Override
     public List<Gebruiker> GetAll() {
         return repo.findAll();
+    }
+
+    @Override
+    public Optional<Gebruiker> Login(String gebrOfEmail, String wachtwoord) {
+        Optional<Gebruiker> gebruiker = repo.findGebruikerByGebruikersnaamAndWachtwoordOrEmailAndWachtwoord(gebrOfEmail, wachtwoord);
+        return gebruiker;
     }
 }

@@ -34,14 +34,46 @@ class LoginControllerTest {
     void register()  {
         Gebruiker gebruiker = new Gebruiker("jan01","jan@example.com","Jan123","jan","janssen",
                 LocalDate.now(),Geslacht.Man,100);
+        Gebruiker gebruiker2 = new Gebruiker("jan01","jan@example.com","Jan123","jan","janssen",
+                LocalDate.now(),Geslacht.Man,101);
         Gebruiker gebruikerFalse = new Gebruiker();
-        gebruikerFalse.setId(12);
         this.controller.Register(gebruiker);
+        this.controller.Register(gebruiker2);
+        this.controller.Register(gebruikerFalse);
         verify(gebruikerService, never()).Create(gebruikerFalse);
+        //verify(gebruikerService, never()).Create(gebruiker2);
+        verify(gebruikerService).GebruikersnaamAlInGebruik(gebruiker2.getGebruikersnaam());
+        verify(gebruikerService).EmailAlInGebruik(gebruiker2.getEmail());
         verify(gebruikerService).Create(gebruiker);
         verify(gebruikerService).GebruikersnaamAlInGebruik(gebruiker.getGebruikersnaam());
         verify(gebruikerService).EmailAlInGebruik(gebruiker.getEmail());
     }
+
+    @Test
+    void login() {
+        //given
+        Gebruiker gebruiker = new Gebruiker("jan01","jan@example.com","Jan123","jan","janssen",
+                LocalDate.now(),Geslacht.Man,100);
+        Gebruiker gebruiker2 = new Gebruiker("tom","tom@example.com","Tom123","tom","janssen",
+                LocalDate.now(),Geslacht.Man,101);
+        Gebruiker gebruikerFalse = new Gebruiker();
+        gebruikerFalse.setEmail("");
+        gebruikerFalse.setGebruikersnaam("");
+        //when
+        this.gebruikerService.Create(gebruiker);
+        this.gebruikerService.Create(gebruiker2);
+        //gebruiker logt in met gebruikersnaam.
+        this.controller.Login(gebruiker.getGebruikersnaam(),gebruiker.getWachtwoord());
+        //gebruiker logt in met wachtwoord.
+        this.controller.Login(gebruiker2.getEmail(),gebruiker2.getWachtwoord());
+        //gebruiker zonder geldige inloggegevens probeert in te loggen.
+        this.controller.Login(gebruikerFalse.getEmail(),gebruikerFalse.getWachtwoord());
+        //then
+        verify(gebruikerService, times(2)).Login(gebruiker.getGebruikersnaam(),gebruiker.getWachtwoord());
+        verify(gebruikerService, times(2)).Login(gebruiker2.getEmail(),gebruiker2.getWachtwoord());
+        verify(gebruikerService, never()).Login(gebruikerFalse.getEmail(),gebruikerFalse.getWachtwoord());
+    }
+
 
     @Test
     void alleGegevensIngevoerd() {
@@ -51,5 +83,4 @@ class LoginControllerTest {
         Assert.isTrue(controller.AlleGegevensIngevoerd(gebruiker));
         Assert.isTrue(!controller.AlleGegevensIngevoerd(gebruiker2));
     }
-
 }

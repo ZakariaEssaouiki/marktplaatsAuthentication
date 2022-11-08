@@ -13,4 +13,5 @@ public interface IGebruikerService {
     public boolean GebruikersnaamAlInGebruik(String gebruikersnaam);
     public boolean EmailAlInGebruik(String email);
     public List<Gebruiker> GetAll();
+    public Optional<Gebruiker> Login(String gebrOfEmail, String wachtwoord);
 }

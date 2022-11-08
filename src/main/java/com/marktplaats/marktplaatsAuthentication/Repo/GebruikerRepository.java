@@ -6,12 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface GebruikerRepository extends JpaRepository<Gebruiker, Integer> {
-    @Query("select (count(g) > 0) from Gebruiker g where g.gebruikersnaam = :naam")
-    boolean findByGebruikersnaam(@Param("naam") String gebruikersnaam);
-
-    @Query("SELECT (COUNT(g) > 0) FROM Gebruiker g where g.email = :email")
-    boolean findByEmail(@Param("email") String email);
-
+    boolean findGebruikerByEmail(String email);
+    boolean findGebruikerByGebruikersnaam(String gebruikersnaam);
+    Optional<Gebruiker> findGebruikerByGebruikersnaamAndWachtwoordOrEmailAndWachtwoord(String gebrOfEmail, String wachtwoord);
 }

@@ -77,15 +77,15 @@ class GebruikerServiceTest {
         //when
         gebruikerService.GebruikersnaamAlInGebruik("jan");
         //then
-        verify(repo).findByGebruikersnaam("jan");
+        verify(repo).findGebruikerByGebruikersnaam("jan");
     }
 
     @Test
-    void checkIfEmailIsNullOfLeeg() {
+    void checkIfGebruikersnaamIsNullOfLeeg() {
         //when
         gebruikerService.GebruikersnaamAlInGebruik(" ");
         //then
-        verify(repo, never()).findByGebruikersnaam(" ");
+        verify(repo, never()).findGebruikerByGebruikersnaam(" ");
     }
 
     @Test
@@ -93,7 +93,7 @@ class GebruikerServiceTest {
         //when
         gebruikerService.EmailAlInGebruik("jan@example.com");
         //then
-        verify(repo).findByEmail("jan@example.com");
+        verify(repo).findGebruikerByEmail("jan@example.com");
     }
 
     @Test
@@ -101,7 +101,15 @@ class GebruikerServiceTest {
         //when
         gebruikerService.EmailAlInGebruik("");
         //then
-        verify(repo, never()).findByEmail("");
+        verify(repo, never()).findGebruikerByEmail("");
     }
 
+    @Test
+    void login() {
+        //when
+        gebruikerService.Login("ludo101","Welkom101");
+        //then
+        verify(repo).findGebruikerByGebruikersnaamAndWachtwoordOrEmailAndWachtwoord("ludo101","Welkom101");
+        verify(repo,never()).findGebruikerByGebruikersnaamAndWachtwoordOrEmailAndWachtwoord(" "," ");
+    }
 }
