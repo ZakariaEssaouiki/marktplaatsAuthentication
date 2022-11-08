@@ -13,4 +13,5 @@ public interface GebruikerRepository extends JpaRepository<Gebruiker, Integer> {
 
     @Query("SELECT (COUNT(g) > 0) FROM Gebruiker g where g.email = :email")
     boolean findByEmail(@Param("email") String email);
+
 }

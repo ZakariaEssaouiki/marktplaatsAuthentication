@@ -3,7 +3,6 @@ package com.marktplaats.marktplaatsAuthentication.Service;
 import com.marktplaats.marktplaatsAuthentication.Model.Gebruiker;
 import com.marktplaats.marktplaatsAuthentication.Model.Geslacht;
 import com.marktplaats.marktplaatsAuthentication.Repo.GebruikerRepository;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -81,10 +81,27 @@ class GebruikerServiceTest {
     }
 
     @Test
+    void checkIfEmailIsNullOfLeeg() {
+        //when
+        gebruikerService.GebruikersnaamAlInGebruik(" ");
+        //then
+        verify(repo, never()).findByGebruikersnaam(" ");
+    }
+
+    @Test
     void emailAlInGebruik() {
         //when
         gebruikerService.EmailAlInGebruik("jan@example.com");
         //then
         verify(repo).findByEmail("jan@example.com");
     }
+
+    @Test
+    void chechIfEmailIsNullOfLeeg() {
+        //when
+        gebruikerService.EmailAlInGebruik("");
+        //then
+        verify(repo, never()).findByEmail("");
+    }
+
 }

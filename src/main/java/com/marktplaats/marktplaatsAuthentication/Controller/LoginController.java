@@ -27,14 +27,12 @@ public class LoginController {
         if(AlleGegevensIngevoerd(gebruiker)){
             if(gebruikerService.GebruikersnaamAlInGebruik(gebruiker.getGebruikersnaam()) || gebruikerService.EmailAlInGebruik(gebruiker.getEmail())){
                 println("Gebruikersnaam of email is al in gebruik!");
-
             }
             else{
                 gebruikerService.Create(gebruiker);
             }
         }
-        String message = this.gson.toJson("Voer aub alle gegevens in.");
-        println(message);
+        println("Voer aub alle gegevens in.");
     }
 
     public boolean AlleGegevensIngevoerd(Gebruiker gebruiker){

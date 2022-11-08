@@ -4,7 +4,6 @@ import com.marktplaats.marktplaatsAuthentication.Model.Gebruiker;
 import com.marktplaats.marktplaatsAuthentication.Repo.GebruikerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public class GebruikerService implements IGebruikerService{
 
     @Override
     public boolean GebruikersnaamAlInGebruik(String gebruikersnaam) {
-        if(gebruikersnaam != null){
+        if(!gebruikersnaam.isEmpty() && !gebruikersnaam.isBlank()){
             if(!repo.findByGebruikersnaam(gebruikersnaam)){
                 return true;
             }
@@ -43,7 +42,7 @@ public class GebruikerService implements IGebruikerService{
 
     @Override
     public boolean EmailAlInGebruik(String email) {
-        if(email != null){
+        if(!email.isEmpty() && !email.isBlank()){
             if(!repo.findByEmail(email)){
                 return true;
             }
