@@ -3,6 +3,7 @@ package com.marktplaats.marktplaatsAuthentication.Model;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 @Entity
 @Table(name = "Gebruikers")
@@ -33,6 +34,18 @@ public class Gebruiker {
         this.id = id;
     }
 
+    public Gebruiker(Optional<Gebruiker> gebruiker){
+        if(gebruiker.isPresent()){
+            this.gebruikersnaam = gebruiker.get().getGebruikersnaam();
+            this.email = gebruiker.get().getEmail();
+            this.wachtwoord = gebruiker.get().getWachtwoord();
+            this.voornaam = gebruiker.get().getVoornaam();
+            this.achternaam = gebruiker.get().getAchternaam();
+            this.geboorteDatum = gebruiker.get().getGeboorteDatum();
+            this.geslacht = gebruiker.get().getGeslacht();
+            this.id = gebruiker.get().getId();
+        }
+    }
     public Gebruiker(){}
 
     public int getLeeftijd(){
@@ -55,13 +68,6 @@ public class Gebruiker {
     public void setVoornaam(String voornaam) {this.voornaam = voornaam;}
     public String getAchternaam() {return achternaam;}
     public void setAchternaam(String achternaam) {this.achternaam = achternaam;}
-
-    /*@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //yyyy-MM-dd'T'HH:mm:ssZ example
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-    }*/
     @Override
     public String toString() {
         return this.gebruikersnaam;

@@ -10,8 +10,6 @@ import com.google.gson.Gson;
 
 import java.util.Optional;
 
-import static java.sql.DriverManager.println;
-
 @RestController
 @RequestMapping("/login")
 @CrossOrigin

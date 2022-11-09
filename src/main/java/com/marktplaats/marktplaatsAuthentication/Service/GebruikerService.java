@@ -4,6 +4,7 @@ import com.marktplaats.marktplaatsAuthentication.Model.Gebruiker;
 import com.marktplaats.marktplaatsAuthentication.Repo.GebruikerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 public class GebruikerService implements IGebruikerService{
     @Autowired
     private GebruikerRepository repo;
+
     public GebruikerService(GebruikerRepository repo){
         this.repo = repo;
     }

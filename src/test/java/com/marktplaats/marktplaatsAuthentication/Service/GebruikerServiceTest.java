@@ -26,7 +26,7 @@ class GebruikerServiceTest {
 
     @BeforeEach
     void setUp(){
-        gebruikerService = new GebruikerService(repo);
+        this.gebruikerService = new GebruikerService(repo);
     }
 
     @Test
